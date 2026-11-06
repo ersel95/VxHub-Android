@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+        <!-- Hosts every VxHub screen shown from outside Compose (VxHubUI.show…). -->
+        <activity
+            android:name="com.vxhub.ui.internal.VxScreenActivity"
+            android:exported="false"
+            android:theme="@style/VxHub.Screen" />
+        <activity
+            android:name="com.vxhub.ui.web.VxWebActivity"
+            android:exported="false"
+            android:theme="@style/VxHub.Screen" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.vxhub.ui.VxUiInitializer"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+</manifest>

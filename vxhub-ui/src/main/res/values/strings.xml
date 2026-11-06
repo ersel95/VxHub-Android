@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Accessibility labels only; visible text comes from the panel through VxHub.localize. -->
+    <string name="vxhub_close">Close</string>
+    <string name="vxhub_back">Back</string>
+</resources>
