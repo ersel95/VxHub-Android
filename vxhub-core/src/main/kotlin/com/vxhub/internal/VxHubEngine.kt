@@ -123,6 +123,7 @@ internal class VxHubEngine(
         prefs = prefs,
         state = state,
         pending = PendingPurchaseStore(VxPurchaseManager.persistence(prefs)),
+        nonConsumableIds = config.nonConsumableProductIds,
     )
 
     val sessionTracker = VxSessionTracker(

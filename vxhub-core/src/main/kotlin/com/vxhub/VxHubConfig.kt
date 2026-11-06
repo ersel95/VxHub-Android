@@ -19,6 +19,10 @@ package com.vxhub
  * @property retryInitializationAutomatically when initialization fails for a transport reason,
  *   try again on the next foreground or when connectivity returns, instead of staying failed
  *   until the process restarts.
+ * @property nonConsumableProductIds one-time Play products that are bought once and kept (a
+ *   lifetime unlock). Google Play has no such product type — iOS reads it from StoreKit — so list
+ *   them here; VxHub then stops offering them once owned. Configure the same products as
+ *   non-consumable in RevenueCat, which is what keeps Google Play from consuming them.
  */
 public class VxHubConfig(
     public val hubId: String,
@@ -27,6 +31,7 @@ public class VxHubConfig(
     public val collectAdvertisingId: Boolean = false,
     public val autoStartOnForeground: Boolean = true,
     public val retryInitializationAutomatically: Boolean = true,
+    public val nonConsumableProductIds: Set<String> = emptySet(),
 ) {
     init {
         require(UUID_V4.matches(hubId)) {

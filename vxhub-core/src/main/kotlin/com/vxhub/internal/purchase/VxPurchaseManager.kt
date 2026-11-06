@@ -28,6 +28,7 @@ internal class VxPurchaseManager(
     private val prefs: VxPreferences,
     private val state: VxStateHolder,
     private val pending: PendingPurchaseStore,
+    private val nonConsumableIds: Set<String> = emptySet(),
     private val providerOf: () -> VxPurchaseProvider? = { VxProviderRegistry.purchase },
 ) {
 
@@ -52,13 +53,15 @@ internal class VxPurchaseManager(
         val products = coroutineScope {
             storeProducts.mapNotNull { product ->
                 val match = backendProducts.matching(product) ?: return@mapNotNull null
-                if (product.type == VxProductType.NON_CONSUMABLE && product.id in owned) return@mapNotNull null
+                val type = typeOf(product)
+                if (type == VxProductType.NON_CONSUMABLE && product.id in owned) return@mapNotNull null
                 async {
                     VxProduct(
                         storeProduct = product,
                         isTrialOrIntroEligible = runCatching { provider.isTrialOrIntroEligible(product) }.getOrDefault(false),
                         initialBonus = match.initialBonus,
                         renewalBonus = match.renewalBonus,
+                        type = type,
                     )
                 }
             }.awaitAll()
@@ -82,7 +85,7 @@ internal class VxPurchaseManager(
             is VxStorePurchaseOutcome.Purchased -> {
                 // Persist before any network call: from here on the user has paid.
                 pending.add(outcome.transactionId, outcome.productId)
-                verifyPending(outcome.transactionId, outcome.productId, product.type, product.id)
+                verifyPending(outcome.transactionId, outcome.productId, typeOf(product), product.id)
             }
         }
     }
@@ -164,6 +167,13 @@ internal class VxPurchaseManager(
             it[VxPreferences.Keys.ACTIVE_NON_CONSUMABLES] = it[VxPreferences.Keys.ACTIVE_NON_CONSUMABLES].orEmpty() + productId
         }
     }
+
+    private fun typeOf(product: VxStoreProduct): VxProductType =
+        if (product.type == VxProductType.CONSUMABLE && (product.id in nonConsumableIds || product.productId in nonConsumableIds)) {
+            VxProductType.NON_CONSUMABLE
+        } else {
+            product.type
+        }
 
     private fun List<BackendProductDto>.matching(product: VxStoreProduct): BackendProductDto? {
         // The panel may list a Play subscription by product id or by `productId:basePlanId`.

@@ -63,19 +63,25 @@ public interface VxStoreProduct {
 
 /**
  * A store product VxHub offers, joined with what the panel says about it. Populated in
- * [com.vxhub.VxHub.products] after initialization.
+ * [com.vxhub.VxHub.products] after initialization. Public so apps can build fakes for previews
+ * and tests.
  */
-public class VxProduct internal constructor(
+public class VxProduct(
     public val storeProduct: VxStoreProduct,
     /** The user can still take the product's free trial or intro price. */
     public val isTrialOrIntroEligible: Boolean,
     /** Coins granted with the first purchase. */
-    public val initialBonus: Int?,
+    public val initialBonus: Int? = null,
     /** Coins granted with every renewal. */
-    public val renewalBonus: Int?,
+    public val renewalBonus: Int? = null,
+    /**
+     * Google Play does not tell consumable and non-consumable one-time products apart, so a
+     * one-time product is [VxProductType.CONSUMABLE] unless listed in
+     * [com.vxhub.VxHubConfig.nonConsumableProductIds].
+     */
+    public val type: VxProductType = storeProduct.type,
 ) {
     public val id: String get() = storeProduct.id
-    public val type: VxProductType get() = storeProduct.type
 
     override fun toString(): String =
         "VxProduct(${storeProduct.id}, ${storeProduct.formattedPrice}, eligible=$isTrialOrIntroEligible)"
