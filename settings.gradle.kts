@@ -23,6 +23,14 @@ rootProject.name = "vxhub-android"
 include(
     ":vxhub-core",
     ":vxhub-ui",
+    ":vxhub-revenuecat",
+    ":vxhub-firebase",
+    ":vxhub-amplitude",
+    ":vxhub-appsflyer",
+    ":vxhub-onesignal",
+    ":vxhub-sentry",
+    ":vxhub-facebook",
+    ":vxhub-google-signin",
 )
 
 // Not published.
