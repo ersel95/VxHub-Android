@@ -78,9 +78,10 @@ locks those apps out. A vendor SDK with newer metadata stays `implementation` (F
 ## Porting from iOS
 
 The port matches two iOS branches that diverge from each other: `feature/app-user-auth` at
-`5692e66` (accounts) and `feat/spend-coins` at `b5c36bb` (coins, purchase verification). To catch
-up with newer iOS work, diff from those commits (`git -C "../VxHub - iOS" diff 5692e66 <branch> --
-Sources`), port each change, then update the two hashes here.
+`5692e66` (accounts) and `feat/spend-coins` (on GitHub as `light-mode`) at `b5c36bb` (coins,
+purchase verification). To catch up with newer iOS work, diff from those commits
+(`git -C "../VxHub - iOS" diff 5692e66 <branch> -- Sources`), port each change, then update the
+two hashes here.
 
 | iOS (`Sources/`) | Android |
 |---|---|
