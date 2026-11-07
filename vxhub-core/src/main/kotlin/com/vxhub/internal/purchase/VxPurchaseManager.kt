@@ -166,6 +166,13 @@ internal class VxPurchaseManager(
         prefs.edit {
             it[VxPreferences.Keys.ACTIVE_NON_CONSUMABLES] = it[VxPreferences.Keys.ACTIVE_NON_CONSUMABLES].orEmpty() + productId
         }
+        publishOwnedNonConsumables()
+        // An owned non-consumable is no longer offered, as after a reload.
+        state.products.value = state.products.value.filterNot { it.type == VxProductType.NON_CONSUMABLE && it.id == productId }
+    }
+
+    fun publishOwnedNonConsumables() {
+        state.ownedNonConsumables.value = prefs[VxPreferences.Keys.ACTIVE_NON_CONSUMABLES].orEmpty()
     }
 
     private fun typeOf(product: VxStoreProduct): VxProductType =

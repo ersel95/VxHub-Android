@@ -172,6 +172,9 @@ public object VxHub {
     /** Products to offer, populated after initialization. Empty until then. */
     public val products: StateFlow<List<VxProduct>> = stateHolder.products.asStateFlow()
 
+    /** Ids of the non-consumables this install owns (see [VxHubConfig.nonConsumableProductIds]). */
+    public val ownedNonConsumables: StateFlow<Set<String>> = stateHolder.ownedNonConsumables.asStateFlow()
+
     /** The last registration's response. */
     public val deviceInfo: StateFlow<VxDeviceInfo?> = stateHolder.deviceInfo.asStateFlow()
 
@@ -441,7 +444,7 @@ public object VxHub {
     public suspend fun ticketsUnseenStatus(): Boolean = engine.api.ticketsUnseenStatus()
 
     public suspend fun supportTickets(): List<VxTicket> = engine.api.tickets().map {
-        VxTicket(it.id, it.category.orEmpty(), it.status, it.state, it.lastMessage, it.lastMessageCreatedAt, it.createdAt, it.isSeen ?: true)
+        VxTicket(it.id, it.category.orEmpty(), it.status, it.state, it.lastMessage, it.lastMessageCreatedAt, it.createdAt, it.isSeen ?: false)
     }
 
     public suspend fun createSupportTicket(category: String, message: String): VxTicket =

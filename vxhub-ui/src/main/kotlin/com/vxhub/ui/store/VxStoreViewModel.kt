@@ -43,7 +43,7 @@ internal class VxStoreViewModel(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = StoreRows.build(configuration, VxHub.products.value, StoreOwnedProducts.ids.value, allowDummyProducts),
+        initialValue = StoreRows.build(configuration, VxHub.products.value, StoreOwnedProducts.current, allowDummyProducts),
     )
 
     /** Like iOS, the store decides once, as it opens, whether it has anything to show. */

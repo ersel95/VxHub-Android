@@ -41,7 +41,8 @@ internal object AuthErrors {
      * it as `GetCredentialCancellationException`; the core passes provider failures on as their cause.
      */
     fun isUserCancellation(error: Throwable): Boolean = generateSequence(error) { it.cause }.take(8).any {
-        it.javaClass.simpleName == "GetCredentialCancellationException" ||
+        it is VxHubException.SignInCancelled ||
+            it.javaClass.simpleName == "GetCredentialCancellationException" ||
             (it is VxHubException.SignInFailed && it.reason.contains("cancel", ignoreCase = true))
     }
 }

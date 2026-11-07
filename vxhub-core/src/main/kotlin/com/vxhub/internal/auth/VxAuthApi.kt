@@ -151,7 +151,8 @@ internal class VxAuthApi(private val http: VxHttpClient) {
             throw VxHubException.NetworkUnavailable(e)
         }
         if (!result.isSuccessful) {
-            if (result.code == 401) throw VxHubException.RequestFailed(401)
+            // Only a bearer-token call reads 401 as "token expired"; on login it means wrong password.
+            if (result.code == 401 && endpoint.authenticated) throw VxHubException.RequestFailed(401)
             val error = result.errorBody()
             val code = error?.messages?.firstOrNull() ?: error?.error ?: "REQUEST_FAILED"
             throw VxHubException.AuthFailed(code, result.code)

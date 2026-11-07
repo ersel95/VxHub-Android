@@ -30,6 +30,9 @@ public sealed class VxHubException(message: String, cause: Throwable? = null) : 
     public class SignInFailed(public val provider: String, public val reason: String, cause: Throwable? = null) :
         VxHubException("Sign in with $provider failed: $reason", cause)
 
+    /** The person dismissed the sign-in sheet. Not an error to show. */
+    public class SignInCancelled(public val provider: String) : VxHubException("Sign in with $provider was cancelled")
+
     public class PromoCodeInvalid(public val messages: List<String>) :
         VxHubException("Promo code invalid: ${messages.joinToString()}")
 

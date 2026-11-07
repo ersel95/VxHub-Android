@@ -233,6 +233,7 @@ internal class VxHubEngine(
     /** Everything that needs only the disk: runs before the first request. */
     private suspend fun prepareLocalState() {
         prefs.load()
+        purchases.publishOwnedNonConsumables()
         auth.restoreStoredSession()
         withContext(Dispatchers.IO) {
             if (device == null) device = DeviceConfig.collect(app)

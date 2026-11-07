@@ -7,6 +7,7 @@
         <activity
             android:name="com.vxhub.ui.internal.VxScreenActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/VxHub.Screen" />
         <activity
             android:name="com.vxhub.ui.web.VxWebActivity"

@@ -5,7 +5,9 @@ package com.vxhub.internal.content
  * `Resources/en.lproj/Localizable.strings`. The panel's localization file overrides these; they
  * only show while it has not caught up with a key a newer SDK added — iOS's bundle fallback.
  *
- * Regenerate rather than edit by hand, so both platforms keep the same keys and wording.
+ * Regenerate rather than edit by hand, so both platforms keep the same keys and wording. The tail
+ * holds keys iOS only defines in code (VxLocalizables.swift) plus Android-only keys; Android says
+ * "Google Play" where iOS says "App Store".
  */
 internal object BundledStrings {
     val values: Map<String, String> = mapOf(
@@ -79,7 +81,7 @@ internal object BundledStrings {
         "PromoOffer_PriceFromLabel" to "From",
         "PromoOffer_PriceToLabel" to "To",
         "PromoOffer_ClaimOfferButtonLabel" to "Claim Offer",
-        "PromoOffer_SecureInfoLabel" to "Secured with App Store",
+        "PromoOffer_SecureInfoLabel" to "Secured with Google Play",
         "PromoOffer_DiscountTitle" to "Discount",
         "PromoOffer_DiscountAmountDescription" to "{{value_1}}% OFF",
         "PromoOffer_Scam" to "Scam Protection",
@@ -155,5 +157,17 @@ internal object BundledStrings {
         "VxAuth_ErrorGeneric" to "Something went wrong. Please try again.",
         "VxAuth_CodeSent" to "If that address has an account, a code is on its way.",
         "VxAuth_PasswordChanged" to "Your password has been changed.",
+        // Android-only keys and keys iOS defines in code rather than in Localizable.strings.
+        "VxAuth_MustChangePassword" to "Choose a password of your own to finish signing in.",
+        "VxAuth_ChangeEmailPrompt" to "Wrong address? Change it",
+        "VxAuth_Close" to "Close",
+        "VxAuth_ErrorAccountUnavailable" to "This account is no longer available. Contact support if you think this is a mistake.",
+        "VxAuth_ErrorSignInUnavailable" to "Signing in is turned off right now. Please try again later.",
+        "VxAuth_ErrorUsePasswordless" to "This account signs in with Google or Apple. Use one of the buttons above.",
+        "VxAuth_ErrorProviderUnavailable" to "This sign-in method is unavailable right now. Try another one.",
+        "VxAuth_ShowPassword" to "Show password",
+        "VxAuth_HidePassword" to "Hide password",
+        "VxSupport_SendButton" to "Send",
+        "Subscription_SubscriptionPending" to "Your purchase is being confirmed. It will be ready shortly.",
     )
 }

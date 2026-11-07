@@ -93,7 +93,7 @@ public fun VxHubUI.showStore(
     configuration: VxStoreConfiguration,
     onResult: (purchased: Boolean, productId: String?) -> Unit,
 ) {
-    val rows = StoreRows.build(configuration, VxHub.products.value, StoreOwnedProducts.ids.value, context.isDebuggableApp)
+    val rows = StoreRows.build(configuration, VxHub.products.value, StoreOwnedProducts.current, context.isDebuggableApp)
     if (rows.rows.isEmpty()) {
         Log.w(LOG_TAG, "[VxStore] No products to show — store will not open")
         onResult(false, null)

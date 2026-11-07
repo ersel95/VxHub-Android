@@ -35,7 +35,7 @@ public class VxCredentialManagerGoogleSignIn : VxGoogleSignInProvider {
         val credential = try {
             CredentialManager.create(activity).getCredential(activity, request).credential
         } catch (e: GetCredentialCancellationException) {
-            throw VxHubException.SignInFailed(PROVIDER, "cancelled", e)
+            throw VxHubException.SignInCancelled(PROVIDER)
         } catch (e: GetCredentialException) {
             throw VxHubException.SignInFailed(PROVIDER, e.message ?: e.type, e)
         }

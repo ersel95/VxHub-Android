@@ -24,6 +24,7 @@ internal class VxStateHolder {
     val isPremium = MutableStateFlow(false)
     val balance = MutableStateFlow(0)
     val products = MutableStateFlow<List<VxProduct>>(emptyList())
+    val ownedNonConsumables = MutableStateFlow<Set<String>>(emptySet())
     val deviceInfo = MutableStateFlow<VxDeviceInfo?>(null)
     val remoteConfig = MutableStateFlow(VxRemoteConfig.EMPTY)
     val isConnected = MutableStateFlow(true)

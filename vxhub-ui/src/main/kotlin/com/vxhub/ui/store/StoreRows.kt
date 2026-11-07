@@ -2,9 +2,11 @@ package com.vxhub.ui.store
 
 import com.vxhub.purchases.VxProduct
 import com.vxhub.purchases.VxProductType
+import com.vxhub.VxHub
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -116,17 +118,15 @@ internal data class StoreRows(val rows: List<StoreRow>, val isDummyMode: Boolean
 internal fun bonusText(showBonusLabel: Boolean, initialBonus: Int?): String? =
     if (showBonusLabel && initialBonus != null && initialBonus > 0) "+$initialBonus% Bonus" else null
 
-/**
- * Non-consumables bought through a store in this process. VxHub leaves owned non-consumables out
- * of [com.vxhub.VxHub.products] when it loads them; one bought since stays listed until the next
- * load, which is when iOS's keychain check catches it. Core has no public "is owned" query, so
- * the store remembers its own purchases.
- */
+/** Non-consumables this install owns: [VxHub.ownedNonConsumables] plus this process's purchases. */
 internal object StoreOwnedProducts {
-    private val owned = MutableStateFlow<Set<String>>(emptySet())
-    val ids: StateFlow<Set<String>> = owned.asStateFlow()
+    // What VxHub persisted (survives restarts) plus what this process bought before verification
+    // finished, so a just-bought card never looks purchasable again.
+    private val session = MutableStateFlow<Set<String>>(emptySet())
+    val ids: Flow<Set<String>> = combine(VxHub.ownedNonConsumables, session) { persisted, local -> persisted + local }
+    val current: Set<String> get() = VxHub.ownedNonConsumables.value + session.value
 
     fun add(productId: String) {
-        owned.update { it + productId }
+        session.update { it + productId }
     }
 }
