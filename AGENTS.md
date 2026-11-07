@@ -96,9 +96,8 @@ two hashes here.
 | `VxHubCore/Resources/en.lproj/Localizable.strings` | `BundledStrings.kt`: run `python3 tools/sync_bundled_strings.py` |
 | `VxHubBanner/`, `VxHub<Vendor>/` | `vxhub-ui/…/banner/`, `vxhub-<vendor>/` |
 
-The backend is `../volvoxhub`. Accounts (`app-auth/*`) exist only on its `feature/app-user-auth`
-branch (not merged to `main` on 2026-11-07), so sign-in works only where that branch is deployed;
-coin spending and purchase verification are on `main`.
+The backend is `../volvoxhub`; accounts (`app-auth/*`), coin spending and purchase verification
+are all on its `main` and in production (accounts since 2026-11-07, backend `03054ae`).
 
 ## Releasing
 
@@ -115,5 +114,5 @@ coin spending and purchase verification are on `main`.
   DNS record; `VxEnvironment.STAGE` points at it for parity.
 - Screens are verified to open on an Android 17 emulator, and an R8 app built from the JitPack
   artifacts runs; flows with real products, accounts and tickets still need a pass against a
-  configured Android app in the panel (accounts also need the backend branch above deployed).
+  configured Android app in the panel.
 - Sign in with Apple has no Android provider.
