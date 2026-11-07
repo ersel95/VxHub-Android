@@ -350,9 +350,11 @@ internal class VxHubEngine(
 
         withContext(mainDispatcher) {
             val attribution = VxProviderRegistry.attribution
-            if (attribution != null && !keys.appsflyerDevKey.isNullOrBlank() && !keys.appsflyerAppId.isNullOrBlank()) {
+            // Android identifies the app by package name, so only the dev key is required (iOS also
+            // needs the App Store id in appsflyer_app_id).
+            if (attribution != null && !keys.appsflyerDevKey.isNullOrBlank()) {
                 guarded("AppsFlyer") {
-                    attribution.initialize(app, keys.appsflyerDevKey, keys.appsflyerAppId, userId, currentLanguage, attributionListener)
+                    attribution.initialize(app, keys.appsflyerDevKey, keys.appsflyerAppId.orEmpty(), userId, currentLanguage, attributionListener)
                     if (attributionStarted.compareAndSet(false, true)) attribution.start(app)
                 }
             }

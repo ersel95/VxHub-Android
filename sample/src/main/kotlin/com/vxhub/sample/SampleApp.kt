@@ -17,7 +17,7 @@ class SampleApp : Application() {
             application = this,
             config = VxHubConfig(
                 hubId = BuildConfig.VXHUB_HUB_ID,
-                environment = VxEnvironment.STAGE,
+                environment = VxEnvironment.valueOf(BuildConfig.VXHUB_ENVIRONMENT),
                 logLevel = VxLogLevel.DEBUG,
             ),
             listener = object : VxHubListener {

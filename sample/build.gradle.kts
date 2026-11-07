@@ -9,6 +9,8 @@ plugins {
 // Pass a real hub id from the VxHub panel with -Pvxhub.sample.hubId=… (or in ~/.gradle/gradle.properties);
 // the placeholder registers nowhere, which is enough to see the offline and failure paths.
 val sampleHubId = providers.gradleProperty("vxhub.sample.hubId").getOrElse("00000000-0000-4000-8000-000000000000")
+// STAGE or PROD. The iOS SDK's stage host (stage.api.volvoxhub.com) has no DNS record today.
+val sampleEnvironment = providers.gradleProperty("vxhub.sample.environment").getOrElse("PROD")
 
 android {
     namespace = "com.vxhub.sample"
@@ -22,6 +24,7 @@ android {
         versionCode = 1
         versionName = "1.0.0"
         buildConfigField("String", "VXHUB_HUB_ID", "\"$sampleHubId\"")
+        buildConfigField("String", "VXHUB_ENVIRONMENT", "\"$sampleEnvironment\"")
     }
 
     buildTypes {
