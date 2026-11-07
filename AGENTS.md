@@ -13,7 +13,8 @@ says why it does not. The backend is `volvoxhub` (NestJS); Android talks to the 
 ```
 build-logic/          convention plugins: vxhub.android.library / .compose / vxhub.publish
 vxhub-core/           public API (com.vxhub.VxHub), network, storage, purchases, auth, analytics
-vxhub-ui/             Compose screens: paywall/ promo/ store/ support/ auth/ banner/ web/
+vxhub-ui/             Compose screens: paywall/ promo/ store/ support/ auth/ banner/ web/;
+                      internal/ holds what they share (VxMarkup, screen helpers, strings)
 vxhub-<vendor>/       one satellite per third-party SDK, registered through AndroidX Startup
 vxhub/                umbrella = core + ui + revenuecat + firebase (iOS's VxHub product)
 vxhub-bom/            version alignment
@@ -68,13 +69,19 @@ library module: a deprecation is a build failure, by design.
 - **Same localization keys as iOS.** `BundledStrings` is generated from iOS's
   `Localizable.strings`; Android-only keys sit at its end.
 
+## Releasing
+
+1. Set `vxhub.version` in `gradle.properties` and add the version to `CHANGELOG.md`.
+2. `./gradlew build publishToMavenLocal` passes; commit.
+3. `git tag X.Y.Z && git push origin main X.Y.Z` (plain semver, no `v`).
+4. `gh release create X.Y.Z --title "X.Y.Z" --notes-file <the CHANGELOG section>`.
+5. Open `https://jitpack.io/com/github/ersel95/VxHub-Android/X.Y.Z/build.log`: it starts the
+   build; artifacts are `com.github.ersel95.VxHub-Android:<module>:X.Y.Z`.
+
 ## Known follow-ups
 
-- `paywall/PaywallMarkup` and `store/VxRichText` both parse iOS's `[b]/[color]/[url]` markup and
-  disagree on unmatched closing tags (dropped vs kept as text). Check iOS `VxLabel`, keep one, move
-  it with `store/ScreenSupport.kt` into `com.vxhub.ui.internal`.
-- The iOS SDK's stage host (`stage.api.volvoxhub.com`) has no DNS record; `VxEnvironment.STAGE`
-  points at it for parity.
+- The iOS SDK's stage host (`stage.api.volvoxhub.com`, also the backend's own stage URL) has no
+  DNS record; `VxEnvironment.STAGE` points at it for parity.
 - Screens are verified to open on an Android 17 emulator; flows with real products, accounts and
   tickets still need a pass against a configured Android app in the panel.
 - Sign in with Apple has no Android provider.

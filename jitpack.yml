@@ -1,5 +1,6 @@
-# JitPack builds the artifacts straight from a git tag: tag, push, done. The tag reaches the build
-# as -Pversion, which wins over vxhub.version (see build-logic/convention/.../VxPublishPlugin.kt).
+# JitPack builds the artifacts straight from a git tag: tag, push, done. JitPack exposes the
+# requested version (tag or commit) as $VERSION; it reaches the build as -Pversion, which wins over
+# vxhub.version (see build-logic/convention/.../VxPublishPlugin.kt).
 jdk:
   - openjdk21
 
@@ -9,4 +10,4 @@ before_install:
   - yes | sdkmanager "platforms;android-37.2" "build-tools;37.0.0" || true
 
 install:
-  - ./gradlew --no-daemon publishToMavenLocal -x lint
+  - ./gradlew --no-daemon publishToMavenLocal -Pversion=$VERSION

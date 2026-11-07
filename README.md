@@ -1,5 +1,7 @@
 # VxHub for Android
 
+[![JitPack](https://jitpack.io/v/ersel95/VxHub-Android.svg)](https://jitpack.io/#ersel95/VxHub-Android)
+
 Server-driven monetization and engagement SDK — the Android port of
 [VxHub for iOS](https://github.com/ersel95/VxHub-iOS). The app supplies one value, its **hub id**;
 the VxHub panel supplies every third-party key (RevenueCat, Amplitude, AppsFlyer, OneSignal,
@@ -43,7 +45,7 @@ dependencyResolutionManagement {
 
 // app/build.gradle.kts
 dependencies {
-    implementation(platform("com.github.ersel95.VxHub-Android:vxhub-bom:<tag>"))
+    implementation(platform("com.github.ersel95.VxHub-Android:vxhub-bom:0.1.0"))
     implementation("com.github.ersel95.VxHub-Android:vxhub")            // core + screens + RevenueCat + Firebase
     implementation("com.github.ersel95.VxHub-Android:vxhub-amplitude")  // add only the services you use
     implementation("com.github.ersel95.VxHub-Android:vxhub-appsflyer")
