@@ -129,7 +129,7 @@ internal class VxAuthApi(private val http: VxHttpClient) {
         } catch (e: VxHubException.RequestFailed) {
             if (!authenticated || e.statusCode != 401) throw e
         }
-        if (!session.refreshNow()) throw VxHubException.SessionExpired()
+        if (!session.refreshNow()) throw session.refreshFailure()
         try {
             return perform(endpoint, deserializer)
         } catch (e: VxHubException.RequestFailed) {
@@ -180,4 +180,10 @@ internal interface AuthSessionHooks {
     suspend fun ensureFreshToken()
     suspend fun refreshNow(): Boolean
     suspend fun sessionRejected()
+
+    /**
+     * Why a refresh failed: the session survives a network failure (so the call failed for want of
+     * a connection) and is gone after a rejection (so the person must sign in again).
+     */
+    fun refreshFailure(): VxHubException
 }

@@ -154,8 +154,11 @@ internal class VxAuthManager(
         val current = session ?: throw VxHubException.NotSignedIn()
         // Refreshed a little early, so a call does not fail on a token that dies in flight.
         if (current.expiresAtEpochMs - clock() > REFRESH_MARGIN_MS) return
-        if (!refreshNow()) throw VxHubException.SessionExpired()
+        if (!refreshNow()) throw refreshFailure()
     }
+
+    override fun refreshFailure(): VxHubException =
+        if (session != null) VxHubException.NetworkUnavailable() else VxHubException.SessionExpired()
 
     override suspend fun refreshNow(): Boolean {
         val attempt = mutex.withLock {
