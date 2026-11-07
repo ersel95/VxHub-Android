@@ -10,6 +10,7 @@ import com.vxhub.purchases.VxPeriodUnit
 import com.vxhub.ui.internal.paywall.PeriodText
 import com.vxhub.ui.internal.replacingPlaceholder
 import com.vxhub.ui.internal.vxString
+import com.vxhub.ui.internal.withValues
 
 /**
  * The texts the main paywalls compose from a product, built as iOS builds them. Templates come

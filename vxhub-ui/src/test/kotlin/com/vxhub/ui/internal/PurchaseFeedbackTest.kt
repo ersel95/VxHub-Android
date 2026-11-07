@@ -1,4 +1,4 @@
-package com.vxhub.ui.store
+package com.vxhub.ui.internal
 
 import com.google.common.truth.Truth.assertThat
 import com.vxhub.purchases.VxPurchaseResult

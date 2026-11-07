@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.LifecycleStartEffect
-import com.vxhub.ui.store.LOG_TAG
+import com.vxhub.ui.internal.LOG_TAG
 import java.io.IOException
 import kotlin.math.max
 import kotlin.math.roundToInt

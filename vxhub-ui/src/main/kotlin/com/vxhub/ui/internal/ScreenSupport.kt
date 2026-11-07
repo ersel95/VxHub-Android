@@ -1,6 +1,4 @@
-// Shared by the promo offer and the store. These helpers belong in com.vxhub.ui.internal; they
-// live here only because this port was scoped to the promo and store packages.
-package com.vxhub.ui.store
+package com.vxhub.ui.internal
 
 import android.app.Activity
 import android.content.Context
@@ -49,8 +47,6 @@ import com.vxhub.purchases.VxPurchaseResult
 import com.vxhub.purchases.VxRestoreResult
 import com.vxhub.ui.VxFont
 import com.vxhub.ui.fontFamily
-import com.vxhub.ui.internal.VxScreenScope
-import com.vxhub.ui.internal.vxString
 import java.util.UUID
 import kotlin.coroutines.cancellation.CancellationException
 

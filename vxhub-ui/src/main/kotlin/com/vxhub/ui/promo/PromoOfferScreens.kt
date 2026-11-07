@@ -62,10 +62,10 @@ import com.vxhub.ui.R
 import com.vxhub.ui.VxFont
 import com.vxhub.ui.fontFamily
 import com.vxhub.ui.internal.VxIcons
+import com.vxhub.ui.internal.VxLoadingButton
+import com.vxhub.ui.internal.VxMarkupText
+import com.vxhub.ui.internal.textStyle
 import com.vxhub.ui.internal.vxString
-import com.vxhub.ui.store.RichText
-import com.vxhub.ui.store.VxLoadingButton
-import com.vxhub.ui.store.textStyle
 
 /** What the buttons of a promo offer do. */
 internal class PromoOfferActions(
@@ -127,7 +127,7 @@ internal fun PromoOfferV1Screen(
 @Composable
 private fun V1Header(isLoading: Boolean, onClose: () -> Unit) {
     Box(Modifier.fillMaxWidth().padding(horizontal = 24.dp), contentAlignment = Alignment.Center) {
-        RichText(
+        VxMarkupText(
             text = vxString("PromoOffer_NavigationTitle"),
             style = Rounded.textStyle(20.sp, FontWeight.Bold, Color.White),
             textAlign = TextAlign.Center,
@@ -193,7 +193,7 @@ private fun ShowcaseItem(category: ShowcaseCategory) {
         if (icon != 0) {
             Image(painterResource(icon), contentDescription = null, contentScale = ContentScale.Fit, modifier = Modifier.size(48.dp))
         }
-        RichText(
+        VxMarkupText(
             text = vxString(category.titleKey),
             style = TextStyle(color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Medium),
             maxLines = 1,
@@ -288,7 +288,7 @@ private fun SecureInfo() {
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Image(PromoIcons.Lock, contentDescription = null, modifier = Modifier.size(16.dp))
-        RichText(
+        VxMarkupText(
             text = vxString("PromoOffer_SecureInfoLabel"),
             style = Rounded.textStyle(12.sp, FontWeight.Normal, Color.White),
             textAlign = TextAlign.Center,
@@ -310,7 +310,7 @@ private fun Modifier.overlapPrevious(amount: Dp): Modifier = layout { measurable
 /** "Save {{value_1}}% on the yearly plan". */
 @Composable
 private fun Description(percentage: String, style: TextStyle) {
-    RichText(
+    VxMarkupText(
         text = PromoOfferLogic.discountText(vxString("PromoOffer_YearlyPlanDescription"), percentage),
         style = style,
         textAlign = TextAlign.Center,
@@ -380,7 +380,7 @@ private fun FooterLinks(color: Color, actions: PromoOfferActions) {
 
 @Composable
 private fun FooterLink(text: String, style: TextStyle, onClick: () -> Unit) {
-    RichText(
+    VxMarkupText(
         text = text,
         style = style,
         maxLines = 1,

@@ -16,10 +16,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vxhub.VxHub
 import com.vxhub.ui.VxHubUI
+import com.vxhub.ui.internal.SystemBarIcons
+import com.vxhub.ui.internal.VxAlert
 import com.vxhub.ui.internal.VxScreenHost
-import com.vxhub.ui.store.SystemBarIcons
-import com.vxhub.ui.store.VxAlert
-import com.vxhub.ui.store.rememberScreenViewModel
+import com.vxhub.ui.internal.rememberScreenViewModel
 
 /**
  * A one-time discount on a subscription — iOS's `VxPromoOfferView`. Shows [productIdentifier]'s

@@ -1,13 +1,20 @@
 package com.vxhub.ui.store
 
-import com.vxhub.ui.VxAnalyticsEvent
 import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vxhub.VxHub
 import com.vxhub.purchases.VxProductType
+import com.vxhub.ui.VxAnalyticsEvent
+import com.vxhub.ui.internal.LOG_TAG
+import com.vxhub.ui.internal.PurchaseFeedback
+import com.vxhub.ui.internal.VxAlertContent
+import com.vxhub.ui.internal.feedback
+import com.vxhub.ui.internal.purchaseCatching
+import com.vxhub.ui.internal.showPurchasePendingBanner
 import com.vxhub.ui.internal.vxString
+import kotlin.time.Duration
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,7 +24,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.time.Duration
 
 internal data class StoreUiState(
     /** The card [VxStorePurchaseMode.SELECT_AND_BUY] buys. */

@@ -16,7 +16,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vxhub.VxHub
 import com.vxhub.ui.VxHubUI
+import com.vxhub.ui.internal.LOG_TAG
+import com.vxhub.ui.internal.SystemBarIcons
 import com.vxhub.ui.internal.VxScreenHost
+import com.vxhub.ui.internal.isDebuggableApp
+import com.vxhub.ui.internal.rememberScreenViewModel
 
 /**
  * The store for coins and one-time products — iOS's `VxStoreView`. It sells the consumable and

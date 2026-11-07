@@ -64,11 +64,11 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.LifecycleStartEffect
-import com.vxhub.VxHub
 import com.vxhub.ui.R
 import com.vxhub.ui.VxFont
 import com.vxhub.ui.fontFamily
 import com.vxhub.ui.internal.VxIcons
+import com.vxhub.ui.internal.VxMarkupText
 import com.vxhub.ui.internal.vxString
 
 internal fun Context.findActivity(): Activity? {
@@ -93,9 +93,7 @@ internal fun PaywallText(
     textAlign: TextAlign = TextAlign.Unspecified,
     maxLines: Int = Int.MAX_VALUE,
 ) {
-    val context = LocalContext.current
-    val annotated = remember(text, context) { PaywallMarkup.parse(text) { url -> VxHub.presentWebUrl(context, url) } }
-    PaywallText(annotated, style, modifier, textAlign, maxLines)
+    VxMarkupText(text, style, modifier, textAlign, maxLines)
 }
 
 @Composable

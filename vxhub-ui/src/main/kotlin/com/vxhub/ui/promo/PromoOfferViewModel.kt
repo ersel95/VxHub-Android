@@ -4,24 +4,24 @@ import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vxhub.ui.internal.LOG_TAG
+import com.vxhub.ui.internal.PurchaseFeedback
+import com.vxhub.ui.internal.VxAlertContent
+import com.vxhub.ui.internal.feedback
 import com.vxhub.ui.internal.paywall.PaywallPage
 import com.vxhub.ui.internal.paywall.PaywallProduct
 import com.vxhub.ui.internal.paywall.PaywallProducts
+import com.vxhub.ui.internal.purchaseCatching
+import com.vxhub.ui.internal.restoreCatching
+import com.vxhub.ui.internal.showPurchasePendingBanner
 import com.vxhub.ui.internal.vxString
-import com.vxhub.ui.store.LOG_TAG
-import com.vxhub.ui.store.PurchaseFeedback
-import com.vxhub.ui.store.VxAlertContent
-import com.vxhub.ui.store.feedback
-import com.vxhub.ui.store.purchaseCatching
-import com.vxhub.ui.store.restoreCatching
-import com.vxhub.ui.store.showPurchasePendingBanner
+import java.math.BigDecimal
+import java.math.RoundingMode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 /** The prices and discount a promo offer shows. */
 internal data class PromoOfferContent(

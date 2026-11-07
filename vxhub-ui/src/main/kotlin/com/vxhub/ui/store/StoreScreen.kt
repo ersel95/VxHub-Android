@@ -59,7 +59,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vxhub.ui.R
 import com.vxhub.ui.VxFont
+import com.vxhub.ui.internal.VxAlert
 import com.vxhub.ui.internal.VxIcons
+import com.vxhub.ui.internal.VxLoadingButton
+import com.vxhub.ui.internal.VxMarkupText
+import com.vxhub.ui.internal.textStyle
 
 /**
  * The store's layout — iOS's `VxStoreV1RootView` and `VxStoreV2RootView`, which share everything
@@ -104,7 +108,7 @@ internal fun StoreScreen(
                 Spacer(Modifier.height(12.dp))
             }
             configuration.headlineText?.let { headline ->
-                RichText(
+                VxMarkupText(
                     text = headline,
                     style = configuration.font.textStyle(26.sp, FontWeight.Bold, configuration.textColor),
                     textAlign = TextAlign.Center,
@@ -113,7 +117,7 @@ internal fun StoreScreen(
                 Spacer(Modifier.height(8.dp))
             }
             configuration.subtitleText?.let { subtitle ->
-                RichText(
+                VxMarkupText(
                     text = subtitle,
                     style = configuration.font.textStyle(16.sp, FontWeight.Normal, secondaryText),
                     textAlign = TextAlign.Center,
@@ -221,7 +225,7 @@ private fun StoreGridCard(row: StoreRow, configuration: VxStoreV1Configuration, 
         ) {
             ProductImage(row.image, configuration.buyButtonColor, configuration.productImageSize)
             Spacer(Modifier.height(6.dp))
-            RichText(
+            VxMarkupText(
                 text = row.title,
                 style = font.textStyle(15.sp, FontWeight.Bold, configuration.textColor),
                 textAlign = TextAlign.Center,
@@ -263,7 +267,7 @@ private fun StoreListCard(row: StoreRow, configuration: VxStoreV2Configuration, 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 ProductImage(row.image, configuration.buyButtonColor, configuration.productImageSize)
                 Spacer(Modifier.width(8.dp))
-                RichText(
+                VxMarkupText(
                     text = row.title,
                     style = font.textStyle(16.sp, FontWeight.SemiBold, configuration.textColor),
                     maxLines = 1,
@@ -284,7 +288,7 @@ private fun StoreListCard(row: StoreRow, configuration: VxStoreV2Configuration, 
                 Spacer(Modifier.height(6.dp))
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     description?.let {
-                        RichText(
+                        VxMarkupText(
                             text = it,
                             style = font.textStyle(13.sp, FontWeight.Normal, StoreColors.descriptionText(configuration.isLightMode)),
                             maxLines = 2,
@@ -308,7 +312,7 @@ private fun StoreListCard(row: StoreRow, configuration: VxStoreV2Configuration, 
 private fun FeatureLine(feature: VxStoreProductFeature, configuration: VxStoreV2Configuration) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         StoreImage(feature.icon, configuration.buyButtonColor, Modifier.size(16.dp))
-        RichText(
+        VxMarkupText(
             text = feature.text,
             style = configuration.font.textStyle(12.sp, FontWeight.Medium, configuration.textColor),
             maxLines = 1,
@@ -324,7 +328,7 @@ private fun SocialProofRow(configuration: VxStoreV2Configuration, text: String, 
         verticalAlignment = Alignment.CenterVertically,
     ) {
         configuration.socialProofIcon?.let { StoreImage(it, StoreColors.systemYellow(configuration.isLightMode), Modifier.size(18.dp)) }
-        RichText(text = text, style = configuration.font.textStyle(14.sp, FontWeight.Medium, color), maxLines = 1)
+        VxMarkupText(text = text, style = configuration.font.textStyle(14.sp, FontWeight.Medium, color), maxLines = 1)
     }
 }
 
@@ -341,7 +345,7 @@ private fun BalanceRow(configuration: VxStoreConfiguration, balance: Int, labelC
     ) {
         configuration.balanceIcon?.let { StoreImage(it, StoreColors.systemYellow(configuration.isLightMode), Modifier.size(24.dp)) }
         configuration.balanceLabel?.let {
-            RichText(text = it, style = configuration.font.textStyle(15.sp, FontWeight.Medium, labelColor), maxLines = 1)
+            VxMarkupText(text = it, style = configuration.font.textStyle(15.sp, FontWeight.Medium, labelColor), maxLines = 1)
         }
         Text(
             text = balance.toString(),
