@@ -12,6 +12,8 @@ android {
 
 dependencies {
     api(libs.coroutines.core)
+    // @RestrictTo on the SDK-internal entry points that satellite modules share.
+    api(libs.androidx.annotation)
     implementation(libs.coroutines.android)
     implementation(libs.serialization.json)
     implementation(libs.okhttp)

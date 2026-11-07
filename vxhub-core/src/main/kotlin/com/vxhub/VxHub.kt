@@ -682,5 +682,17 @@ public object VxHub {
         public val currentActivity: Activity? get() = ActivityTracker.current
 
         public val isInitialized: Boolean get() = engineOrNull != null
+
+        /** Logs through VxHub's logger, so satellites honour [VxHubConfig.logLevel]. */
+        public fun log(level: VxLogLevel, message: String, error: Throwable? = null) {
+            when (level) {
+                VxLogLevel.VERBOSE -> VxLog.v { message }
+                VxLogLevel.DEBUG -> VxLog.d { message }
+                VxLogLevel.INFO -> VxLog.i(message)
+                VxLogLevel.WARNING -> VxLog.w(message, error)
+                VxLogLevel.ERROR -> VxLog.e(message, error)
+                VxLogLevel.NONE -> Unit
+            }
+        }
     }
 }
