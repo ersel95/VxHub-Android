@@ -75,6 +75,30 @@ locks those apps out. A vendor SDK with newer metadata stays `implementation` (F
 - **Same localization keys as iOS.** `BundledStrings` is generated from iOS's
   `Localizable.strings`; Android-only keys sit at its end.
 
+## Porting from iOS
+
+The port matches two iOS branches that diverge from each other: `feature/app-user-auth` at
+`5692e66` (accounts) and `feat/spend-coins` at `b5c36bb` (coins, purchase verification). To catch
+up with newer iOS work, diff from those commits (`git -C "../VxHub - iOS" diff 5692e66 <branch> --
+Sources`), port each change, then update the two hashes here.
+
+| iOS (`Sources/`) | Android |
+|---|---|
+| `VxHubCore/VxHub.swift`, `VxHub+Auth.swift` | `vxhub-core/…/VxHub.kt` (facade) → `internal/VxHubEngine.kt`, `internal/auth/` |
+| `VxHubCore/Network/` (`mTLS/` too) | `internal/network/` |
+| `VxHubCore/Purchases/`, `Providers/` | `internal/purchase/`, `providers/VxProviders.kt` |
+| `VxHubCore/Storage/`, `Utils/VxDownloader.swift` | `internal/storage/`, `internal/content/` |
+| `VxHubCore/SessionAnalytics/` | `internal/analytics/` |
+| `VxHubCore/Paywalls/` (`VxMainPaywall`, `VxPromoOffer`, `VxStore`) | `vxhub-ui/…/paywall/`, `promo/`, `store/` |
+| `VxHubCore/Support/`, `SwiftUI/VxAuthView.swift` | `vxhub-ui/…/support/`, `auth/` |
+| `VxHubCore/VxComponents/` (`VxLabel` markup) | `vxhub-ui/…/internal/VxMarkup.kt` |
+| `VxHubCore/Resources/en.lproj/Localizable.strings` | `BundledStrings.kt`: run `python3 tools/sync_bundled_strings.py` |
+| `VxHubBanner/`, `VxHub<Vendor>/` | `vxhub-ui/…/banner/`, `vxhub-<vendor>/` |
+
+The backend is `../volvoxhub`. Accounts (`app-auth/*`) exist only on its `feature/app-user-auth`
+branch (not merged to `main` on 2026-11-07), so sign-in works only where that branch is deployed;
+coin spending and purchase verification are on `main`.
+
 ## Releasing
 
 1. Set `vxhub.version` in `gradle.properties` and add the version to `CHANGELOG.md`.
@@ -88,6 +112,7 @@ locks those apps out. A vendor SDK with newer metadata stays `implementation` (F
 
 - The iOS SDK's stage host (`stage.api.volvoxhub.com`, also the backend's own stage URL) has no
   DNS record; `VxEnvironment.STAGE` points at it for parity.
-- Screens are verified to open on an Android 17 emulator; flows with real products, accounts and
-  tickets still need a pass against a configured Android app in the panel.
+- Screens are verified to open on an Android 17 emulator, and an R8 app built from the JitPack
+  artifacts runs; flows with real products, accounts and tickets still need a pass against a
+  configured Android app in the panel (accounts also need the backend branch above deployed).
 - Sign in with Apple has no Android provider.

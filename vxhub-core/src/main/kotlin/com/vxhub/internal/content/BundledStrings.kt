@@ -5,9 +5,10 @@ package com.vxhub.internal.content
  * `Resources/en.lproj/Localizable.strings`. The panel's localization file overrides these; they
  * only show while it has not caught up with a key a newer SDK added — iOS's bundle fallback.
  *
- * Regenerate rather than edit by hand, so both platforms keep the same keys and wording. The tail
- * holds keys iOS only defines in code (VxLocalizables.swift) plus Android-only keys; Android says
- * "Google Play" where iOS says "App Store".
+ * Regenerate with `python3 tools/sync_bundled_strings.py` rather than edit by hand, so both
+ * platforms keep the same keys and wording. The tail holds keys iOS only defines in code
+ * (VxLocalizables.swift) plus Android-only keys; Android says "Google Play" where iOS says
+ * "App Store".
  */
 internal object BundledStrings {
     val values: Map<String, String> = mapOf(
