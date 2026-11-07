@@ -31,7 +31,10 @@ include(
     ":vxhub-sentry",
     ":vxhub-facebook",
     ":vxhub-google-signin",
+    ":vxhub-media",
+    ":vxhub",
+    ":vxhub-bom",
 )
 
 // Not published.
-// include(":sample")
+include(":sample")

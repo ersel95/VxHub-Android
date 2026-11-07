@@ -11,7 +11,7 @@ android {
 
 dependencies {
     api(project(":vxhub-core"))
-    implementation(platform(libs.firebase.bom))
+    api(platform(libs.firebase.bom))
     api(libs.firebase.analytics)
     implementation(libs.serialization.json)
     implementation(libs.coroutines.android)

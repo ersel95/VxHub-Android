@@ -11,3 +11,7 @@
     public boolean isLimitAdTrackingEnabled();
 }
 -dontwarn com.google.android.gms.ads.identifier.**
+
+# play review-ktx's generated SAM adapter carries an annotation from a newer play-services-basement
+# than it declares; it has no runtime role.
+-dontwarn com.google.android.gms.common.annotation.NoNullnessRewrite

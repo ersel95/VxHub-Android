@@ -20,7 +20,9 @@ class VxAndroidComposePlugin : Plugin<Project> {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
         dependencies {
             val bom = platform(libs.findLibrary("compose-bom").get())
-            add("implementation", bom)
+            // `api`: modules expose versionless Compose artifacts, and consumers need the BOM to
+            // resolve them. A platform only recommends versions, so an app on a newer BOM still wins.
+            add("api", bom)
             add("testImplementation", bom)
             add("implementation", libs.findLibrary("compose-ui-tooling-preview").get())
             add("debugImplementation", libs.findLibrary("compose-ui-tooling").get())
