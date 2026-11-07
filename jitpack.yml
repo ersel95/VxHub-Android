@@ -1,13 +1,13 @@
 # JitPack builds the artifacts straight from a git tag: tag, push, done. JitPack exposes the
 # requested version (tag or commit) as $VERSION; it reaches the build as -Pversion, which wins over
-# vxhub.version (see build-logic/convention/.../VxPublishPlugin.kt).
+# vxhub.version (see build-logic/convention/.../VxPublishPlugin.kt). AGP downloads the Android
+# platform and build tools it needs: JitPack's own sdkmanager cannot run on JDK 21.
 jdk:
   - openjdk21
 
 before_install:
   - sdk install java 21.0.5-tem || true
   - sdk use java 21.0.5-tem || true
-  - yes | sdkmanager "platforms;android-37.2" "build-tools;37.0.0" || true
 
 install:
   - ./gradlew --no-daemon publishToMavenLocal -Pversion=$VERSION
