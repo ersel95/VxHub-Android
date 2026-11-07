@@ -26,6 +26,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vxhub.VxHub
 import com.vxhub.providers.VxBannerType
 import com.vxhub.purchases.VxPurchaseResult
+import com.vxhub.ui.VxHubUI
+import com.vxhub.ui.auth.VxAuthResult
+import com.vxhub.ui.auth.showAuth
+import com.vxhub.ui.paywall.VxMainPaywallV4Configuration
+import com.vxhub.ui.paywall.showPaywall
+import com.vxhub.ui.promo.showPromoOffer
+import com.vxhub.ui.store.VxStoreV1Configuration
+import com.vxhub.ui.store.showStore
+import com.vxhub.ui.support.showSupport
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -80,6 +89,25 @@ private fun SampleScreen(activity: ComponentActivity) {
             }
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("Ready-made screens", style = MaterialTheme.typography.titleMedium)
+                    Button(onClick = { VxHubUI.showPaywall(activity, VxMainPaywallV4Configuration(), onResult = { VxHub.showBanner("Paywall: $it") }) }) {
+                        Text("Paywall (V4)")
+                    }
+                    Button(onClick = { VxHubUI.showPromoOffer(activity, productToCompareIdentifier = null) { VxHub.showBanner("Promo purchased: $it") } }) {
+                        Text("Promo offer")
+                    }
+                    Button(onClick = { VxHubUI.showStore(activity, VxStoreV1Configuration()) { purchased, id -> VxHub.showBanner("Store: $purchased $id") } }) {
+                        Text("Coin store")
+                    }
+                    Button(onClick = { VxHubUI.showSupport(activity) }) { Text("Contact support") }
+                    Button(
+                        onClick = {
+                            VxHubUI.showAuth(activity) { result ->
+                                if (result is VxAuthResult.SignedIn) VxHub.showBanner("Signed in as ${result.user.email}")
+                            }
+                        },
+                    ) { Text("Sign in") }
+                    Text("Core", style = MaterialTheme.typography.titleMedium)
                     OutlinedButton(onClick = { scope.launch { VxHub.showBanner("Restore: ${VxHub.restorePurchases()}", VxBannerType.INFO) } }) {
                         Text("Restore purchases")
                     }

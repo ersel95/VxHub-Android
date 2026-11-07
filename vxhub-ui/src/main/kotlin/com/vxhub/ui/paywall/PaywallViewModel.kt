@@ -1,5 +1,6 @@
 package com.vxhub.ui.paywall
 
+import com.vxhub.ui.VxAnalyticsEvent
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -49,7 +50,7 @@ internal enum class PaywallNotice(val key: String, val defaultText: String) {
  * flight survives a configuration change and its result still reaches the screen.
  */
 internal class PaywallViewModel(
-    private val analyticsEvents: Set<VxPaywallAnalyticsEvent>,
+    private val analyticsEvents: Set<VxAnalyticsEvent>,
     items: Flow<List<PaywallItem>> = VxHub.products.map(::mainPaywallItems),
     private val isConnected: () -> Boolean = { VxHub.isConnected.value },
     private val restorePurchases: suspend () -> VxRestoreResult = { VxHub.restorePurchases() },
@@ -75,9 +76,9 @@ internal class PaywallViewModel(
     fun select(item: PaywallItem) {
         if (state.isLoading) return
         state = state.copy(selectedId = item.id)
-        if (VxPaywallAnalyticsEvent.SELECT in analyticsEvents) {
+        if (VxAnalyticsEvent.SELECT in analyticsEvents) {
             logEvent(
-                VxPaywallAnalyticsEvent.SELECT.eventName,
+                VxAnalyticsEvent.SELECT.eventName,
                 mapOf("product_identifier" to item.id, "page_name" to "subscription_landing"),
             )
         }

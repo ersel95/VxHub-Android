@@ -1,5 +1,6 @@
 package com.vxhub.ui.paywall
 
+import com.vxhub.ui.VxAnalyticsEvent
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import androidx.compose.runtime.Immutable
@@ -26,18 +27,6 @@ public enum class VxMainPaywallType {
 
     /** Benefits and products at the bottom over a background image or looping video. */
     V2,
-}
-
-/** Amplitude events the paywall logs when listed in a configuration — iOS's `AnalyticEvents`. */
-public enum class VxPaywallAnalyticsEvent(public val eventName: String) {
-    /**
-     * "Select", with `product_identifier` and `page_name = subscription_landing`, each time the
-     * user taps a product.
-     */
-    SELECT("Select"),
-
-    /** Accepted for parity with iOS, whose main paywalls never log it either. */
-    PURCHASED("Purchased"),
 }
 
 /**
@@ -93,7 +82,7 @@ public class VxMainPaywallConfiguration(
     public val showGradientVideoBackground: Boolean = false,
     public val isLightMode: Boolean = true,
     textColor: Color? = null,
-    public val analyticsEvents: Set<VxPaywallAnalyticsEvent> = emptySet(),
+    public val analyticsEvents: Set<VxAnalyticsEvent> = emptySet(),
     public val dismissButtonColor: Color? = null,
     public val isCloseButtonEnabled: Boolean = true,
     public val closeButtonColor: Color = Color(0xFF0000FF),
@@ -135,7 +124,7 @@ public class VxMainPaywallV3Configuration(
     public val trustText: String? = null,
     public val isCloseButtonEnabled: Boolean = true,
     public val closeButtonColor: Color = Color(0xFF808080),
-    public val analyticsEvents: Set<VxPaywallAnalyticsEvent> = emptySet(),
+    public val analyticsEvents: Set<VxAnalyticsEvent> = emptySet(),
     public val closeButtonDelay: Duration = Duration.ZERO,
     public val isRedeemCodeEnabled: Boolean = true,
 ) : VxPaywallConfiguration {
@@ -170,14 +159,14 @@ public class VxMainPaywallV4Configuration(
     public val trustText: String? = null,
     public val isCloseButtonEnabled: Boolean = true,
     public val closeButtonColor: Color = Color(0xFF808080),
-    public val analyticsEvents: Set<VxPaywallAnalyticsEvent> = emptySet(),
+    public val analyticsEvents: Set<VxAnalyticsEvent> = emptySet(),
     public val closeButtonDelay: Duration = Duration.ZERO,
     public val isRedeemCodeEnabled: Boolean = true,
 ) : VxPaywallConfiguration {
     public val textColor: Color = textColor ?: if (isLightMode) Color.Black else Color.White
 }
 
-internal val VxPaywallConfiguration.analyticsEventSet: Set<VxPaywallAnalyticsEvent>
+internal val VxPaywallConfiguration.analyticsEventSet: Set<VxAnalyticsEvent>
     get() = when (this) {
         is VxMainPaywallConfiguration -> analyticsEvents
         is VxMainPaywallV3Configuration -> analyticsEvents

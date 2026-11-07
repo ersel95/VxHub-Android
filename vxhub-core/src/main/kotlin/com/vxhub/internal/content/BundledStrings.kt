@@ -169,5 +169,7 @@ internal object BundledStrings {
         "VxAuth_HidePassword" to "Hide password",
         "VxSupport_SendButton" to "Send",
         "Subscription_SubscriptionPending" to "Your purchase is being confirmed. It will be ready shortly.",
+        "Subscription_PaymentPending" to "Your payment is pending. Premium unlocks as soon as it is confirmed.",
+        "Subscription_VerificationPending" to "We received your purchase and are confirming it. Premium unlocks shortly.",
     )
 }

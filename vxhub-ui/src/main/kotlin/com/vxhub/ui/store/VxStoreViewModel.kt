@@ -1,5 +1,6 @@
 package com.vxhub.ui.store
 
+import com.vxhub.ui.VxAnalyticsEvent
 import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -74,9 +75,9 @@ internal class VxStoreViewModel(
         if (state.value.isLoading || configuration.purchaseMode != VxStorePurchaseMode.SELECT_AND_BUY) return
         if (rows.value.row(identifier) == null) return
         mutableState.update { it.copy(selectedId = identifier) }
-        if (VxStoreAnalyticEvent.SELECT in configuration.analyticsEvents) {
+        if (VxAnalyticsEvent.SELECT in configuration.analyticsEvents) {
             VxHub.logAmplitudeEvent(
-                VxStoreAnalyticEvent.SELECT.eventName,
+                VxAnalyticsEvent.SELECT.eventName,
                 mapOf("product_identifier" to identifier, "page_name" to "store"),
             )
         }

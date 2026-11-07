@@ -1,5 +1,6 @@
 package com.vxhub.ui.paywall
 
+import com.vxhub.ui.VxAnalyticsEvent
 import com.google.common.truth.Truth.assertThat
 import com.vxhub.purchases.VxPeriodUnit
 import com.vxhub.purchases.VxProduct
@@ -45,7 +46,7 @@ class PaywallViewModelTest {
 
     private fun viewModel(
         items: List<PaywallItem> = listOf(yearly, weekly),
-        analytics: Set<VxPaywallAnalyticsEvent> = emptySet(),
+        analytics: Set<VxAnalyticsEvent> = emptySet(),
     ) = PaywallViewModel(
         analyticsEvents = analytics,
         items = flowOf(items),
@@ -95,7 +96,7 @@ class PaywallViewModelTest {
         silent.select(yearly)
         assertThat(logged).isEmpty()
 
-        val logging = viewModel(analytics = setOf(VxPaywallAnalyticsEvent.SELECT))
+        val logging = viewModel(analytics = setOf(VxAnalyticsEvent.SELECT))
         logging.select(yearly)
         assertThat(logging.state.selected).isEqualTo(yearly)
         assertThat(logged).containsExactly(

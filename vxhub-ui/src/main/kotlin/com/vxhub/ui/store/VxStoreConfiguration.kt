@@ -1,5 +1,6 @@
 package com.vxhub.ui.store
 
+import com.vxhub.ui.VxAnalyticsEvent
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -17,15 +18,6 @@ public enum class VxStorePurchaseMode {
 
     /** Cards are selectable (the first one starts selected) and one button buys the selection. */
     SELECT_AND_BUY,
-}
-
-/** Amplitude events the store can log — iOS's `AnalyticEvents`. */
-public enum class VxStoreAnalyticEvent(public val eventName: String) {
-    /** `Select`, with `product_identifier` and `page_name = "store"`, whenever a card is selected. */
-    SELECT("Select"),
-
-    /** Accepted for parity with iOS, whose store does not log it either. */
-    PURCHASED("Purchased"),
 }
 
 /**
@@ -155,7 +147,7 @@ public sealed interface VxStoreConfiguration {
 
     /** How long the close button stays hidden after the store opens. */
     public val closeButtonDelay: Duration
-    public val analyticsEvents: Set<VxStoreAnalyticEvent>
+    public val analyticsEvents: Set<VxAnalyticsEvent>
 
     /** Leave out non-consumables the user already owns, instead of marking them [purchasedBadgeText]. */
     public val hideAlreadyPurchasedNonConsumables: Boolean
@@ -204,7 +196,7 @@ public class VxStoreV1Configuration(
     override val isCloseButtonEnabled: Boolean = true,
     override val closeButtonColor: Color = StoreColors.Gray,
     override val closeButtonDelay: Duration = Duration.ZERO,
-    override val analyticsEvents: Set<VxStoreAnalyticEvent> = emptySet(),
+    override val analyticsEvents: Set<VxAnalyticsEvent> = emptySet(),
     override val hideAlreadyPurchasedNonConsumables: Boolean = true,
     override val purchasedBadgeText: String? = "OWNED",
     override val purchasedBadgeColor: Color = StoreColors.systemGreen(isLightMode),
@@ -254,7 +246,7 @@ public class VxStoreV2Configuration(
     override val isCloseButtonEnabled: Boolean = true,
     override val closeButtonColor: Color = StoreColors.Gray,
     override val closeButtonDelay: Duration = Duration.ZERO,
-    override val analyticsEvents: Set<VxStoreAnalyticEvent> = emptySet(),
+    override val analyticsEvents: Set<VxAnalyticsEvent> = emptySet(),
     override val hideAlreadyPurchasedNonConsumables: Boolean = true,
     override val purchasedBadgeText: String? = "OWNED",
     override val purchasedBadgeColor: Color = StoreColors.systemGreen(isLightMode),
