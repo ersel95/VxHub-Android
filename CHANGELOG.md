@@ -15,3 +15,4 @@ First release of VxHub for Android, feature-matched with VxHub for iOS
   banners, in-app web pages.
 - Satellites: RevenueCat, Firebase, Amplitude (+ Experiment), AppsFlyer, OneSignal, Sentry,
   Facebook, Google sign-in, media (Coil, Lottie, Media3, audio recording).
+- Apps on Kotlin 2.2+ (AGP 9's built-in Kotlin) can use every module.

@@ -11,8 +11,10 @@ android {
 
 dependencies {
     api(project(":vxhub-core"))
-    api(platform(libs.firebase.bom))
-    api(libs.firebase.analytics)
+    // Not api: Firebase is VxHub's to configure, and keeping it off the app's compile classpath keeps
+    // its Kotlin 2.4 metadata away from apps on older compilers.
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
     implementation(libs.serialization.json)
     implementation(libs.coroutines.android)
     implementation(libs.androidx.startup)

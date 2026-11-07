@@ -26,7 +26,7 @@ the foreground by itself).
 |---|---|
 | minSdk | 24 (Android 7.0) |
 | compileSdk | 37 (minor 2) |
-| Kotlin | 2.4+ (consumers on Kotlin 2.3 can read the metadata) |
+| Kotlin (app) | 2.2+, so AGP 9's built-in Kotlin works as is |
 | AGP / Gradle | 9.x / 9.x, JDK 17+ |
 
 ## Installation

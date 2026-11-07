@@ -3,6 +3,10 @@
 [versions]
 agp = "9.5.1"
 kotlin = "2.4.21"
+# The oldest Kotlin an app may build with: the libraries compile for its language/API level and
+# depend on its stdlib (a compiler reads metadata at most one minor version ahead of itself).
+# 2.2 is AGP 9's built-in Kotlin, so a new project needs no Kotlin setup of its own for VxHub.
+kotlinConsumer = "2.2.21"
 
 compileSdk = "37"
 compileSdkMinor = "2"

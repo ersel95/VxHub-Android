@@ -45,6 +45,12 @@ Latest stable everything (AGP 9.5, Gradle 9.9, Kotlin 2.4, compileSdk 37.2, Comp
 `org.jetbrains.kotlin.android`. Explicit API mode and `allWarningsAsErrors` are on for every
 library module: a deprecation is a build failure, by design.
 
+Apps compile against VxHub with their own Kotlin, and a compiler reads metadata at most one minor
+version newer than itself. So the libraries compile at `kotlinConsumer`'s language/API level
+(`libs.versions.toml`, now 2.2 = AGP 9's built-in Kotlin) and depend on its stdlib; raising it
+locks those apps out. A vendor SDK with newer metadata stays `implementation` (Firebase 24 is
+2.4). Check with an app on AGP's default Kotlin that depends on the published artifacts.
+
 ## Behaviours that MUST be preserved
 
 - **The backend decides premium.** A purchase is done only when `device/after-purchase` verified

@@ -39,7 +39,7 @@ public enum class VxMainPaywallType {
 @Immutable
 public data class VxPaywallFeature(
     val text: String,
-    @DrawableRes val icon: Int? = null,
+    @param:DrawableRes val icon: Int? = null,
     val tintIcon: Boolean = icon == null,
 )
 
@@ -70,14 +70,14 @@ public data class VxPaywallFeature(
 public class VxMainPaywallConfiguration(
     public val paywallType: VxMainPaywallType,
     public val font: VxFont = VxFont.Rounded,
-    @DrawableRes public val appLogoImage: Int? = null,
-    @DrawableRes public val appNameImage: Int? = null,
+    @param:DrawableRes public val appLogoImage: Int? = null,
+    @param:DrawableRes public val appNameImage: Int? = null,
     public val descriptionFont: VxFont = font,
     public val descriptionItems: List<VxPaywallFeature> = emptyList(),
     public val mainButtonColor: Color = Color(0xFF800080),
     public val backgroundColor: Color = Color.White,
-    @DrawableRes public val backgroundImage: Int? = null,
-    @RawRes public val video: Int? = null,
+    @param:DrawableRes public val backgroundImage: Int? = null,
+    @param:RawRes public val video: Int? = null,
     public val videoHeightMultiplier: Float = 0.72f,
     public val showGradientVideoBackground: Boolean = false,
     public val isLightMode: Boolean = true,
@@ -110,7 +110,7 @@ public class VxMainPaywallConfiguration(
 @Immutable
 public class VxMainPaywallV3Configuration(
     public val font: VxFont = VxFont.Rounded,
-    @DrawableRes public val heroImage: Int? = null,
+    @param:DrawableRes public val heroImage: Int? = null,
     public val backgroundColor: Color = Color.White,
     public val isLightMode: Boolean = true,
     textColor: Color? = null,
@@ -145,7 +145,7 @@ public class VxMainPaywallV3Configuration(
 @Immutable
 public class VxMainPaywallV4Configuration(
     public val font: VxFont = VxFont.Rounded,
-    @DrawableRes public val heroImage: Int? = null,
+    @param:DrawableRes public val heroImage: Int? = null,
     public val backgroundColor: Color = Color.White,
     public val isLightMode: Boolean = true,
     textColor: Color? = null,

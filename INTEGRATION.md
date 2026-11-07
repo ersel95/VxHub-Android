@@ -83,6 +83,8 @@ cash/bank-transfer state.
 ### Ready-made screens
 
 ```kotlin
+// Each launcher sits next to its screen: import com.vxhub.ui.paywall.showPaywall,
+// com.vxhub.ui.support.showSupport, … (the IDE offers them).
 VxHubUI.showPaywall(activity, VxMainPaywallV4Configuration(), onResult = { result -> … })
 VxHubUI.showPromoOffer(activity, productIdentifier = "pro_yearly_offer", productToCompareIdentifier = "pro_yearly") { purchased -> }
 VxHubUI.showStore(activity, VxStoreV2Configuration()) { purchased, productId -> }

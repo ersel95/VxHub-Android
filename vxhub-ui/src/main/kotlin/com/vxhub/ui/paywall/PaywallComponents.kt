@@ -309,7 +309,7 @@ internal fun PaywallVideo(@RawRes video: Int, modifier: Modifier = Modifier) {
     }
 }
 
-private class LoopingVideoPlayer(private val context: Context, @RawRes private val video: Int) : TextureView.SurfaceTextureListener {
+private class LoopingVideoPlayer(private val context: Context, @param:RawRes private val video: Int) : TextureView.SurfaceTextureListener {
     private var player: MediaPlayer? = null
     private var surface: Surface? = null
     private var isPrepared = false
